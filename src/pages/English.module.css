@@ -1,0 +1,10 @@
+ul {
+    margin:50px;
+    text-align: center;
+    font-size: 30px;
+    list-style-type: none;
+}
+
+.wrapper {
+    padding-top: 100px;
+}

@@ -1,0 +1,22 @@
+.container {
+    display: flex;
+    font-size: 30px;
+    margin-top: 10px;
+  }
+  
+.leftColumn {
+    flex: 15%;
+  }
+.rightColumn{
+    flex: 85%;
+}
+.year{
+    margin:0px;
+    text-align: center;
+}
+
+.year:hover{
+  background:black;
+  color:white;
+}
+

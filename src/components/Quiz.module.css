@@ -1,0 +1,12 @@
+.quiz {
+    text-align: left;
+    /* position:relative;
+    height:100px; */
+}
+
+.choices {
+    text-align: left;
+    display:inline-flex;
+    /* position: absolute;
+    bottom:0 */
+}

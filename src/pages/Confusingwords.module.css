@@ -1,0 +1,23 @@
+.answerOption {
+    list-style-type: none;
+}
+
+ul {
+    padding:0px;
+    margin:0px;
+    display: inline;
+}
+
+.answerOption {
+    display:inline;
+    margin-right:20px;
+}
+
+h2 {
+    font-size: 25px;
+}
+
+table {
+    text-align: left;
+}
+
