@@ -43,7 +43,7 @@ class Spelling extends React.Component {
         // .then(x => x.text())
         // .then(y => myDisplay(y));
 
-        fetch('http://localhost:80/myFirstSite_Back/Spelling.php/').then(response => {
+        fetch('http://localhost:80/myFirstSite_Back/toFetchData.php?table=Spelling').then(response => {
             // response refers to the Response object returned by fetch. 
             // you can use X to refer to it as well.
             console.log(response);
