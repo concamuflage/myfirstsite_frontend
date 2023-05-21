@@ -24,7 +24,7 @@ function shuffle(array) {
 class Confusingwords extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {employee: []};
+        this.state = {words_rs: []};
 
         // What are these?
         // 只是为了后续用map生成表头.
@@ -77,19 +77,19 @@ class Confusingwords extends React.Component {
             // you can use X to refer to it as well.
             console.log(response);
             // https://developer.mozilla.org/en-US/docs/Web/API/Response/json
-            // response.json takes json and turn it into an object.
-            return response.json();
+            // response.json takes json and turn it into an array.
+            return response.json(); // this will return an array of objects.
+            // For example:
+            // [
+            // {ID: '469', WordOne: 'weather', WordTwo: 'whether', QuestionOne: 'The weather is very nice!', QuestionTwo: 'Whether you come or not doesn’t matter.'}, 
+            // {ID: '470', WordOne: 'cash', WordTwo: 'cache', QuestionOne: 'We only accept cash.', QuestionTwo: 'memory cache'}
+            // ]
             //Where is the 'result' from？
             // it refers to the result of response.json().
             // it doesn't need to be declared.
           }).then(result => {
-            // Work with JSON data here
-
-            console.log(result);
+            console.log("result:",result);
             this.setState({
-                // result is an js object returned by response.json()
-                // an array in the object looks like the following.
-                // {ID: '1', WordOne: 'coma', WordTwo: 'comma', QuestionOne: 'He fell into a coma.', QuestionTwo: 'A comma is needed between these two words.'}
                 words_rs:result
             }); 
           }).catch(err => {
@@ -100,6 +100,9 @@ class Confusingwords extends React.Component {
          
     render() {
         // Isn't this expression redundant?
+        // no, it is not; in fact, this is conditional rendering.
+        // when employeeFound is true, you render the table.
+        // else render "no results found."
         const employeeFound = this.state.words_rs && this.state.words_rs.length;
         if(employeeFound) {
             return (
@@ -112,6 +115,7 @@ class Confusingwords extends React.Component {
                             <tr>
                                 {
                                   // What is this line doing here?
+                                  //
                                     this.headers.map(function(h) {
                                         return (
                                             // th defines a header cell in HTML
@@ -123,7 +127,8 @@ class Confusingwords extends React.Component {
                         </thead>
                         <tbody>
                             {
-                                // 这个item 和index分别指代的啥？
+                                // what do item and index refer to？
+                                // item is an element in the array, and index is the index of the element.
                                 this.state.words_rs.map(function(item, index) {
                                     // to put two quizzes in an array and shuffle them
                                     // must test if it works.
@@ -132,7 +137,7 @@ class Confusingwords extends React.Component {
                                     let targetTwo=item.WordTwo
                                     // the i means case INSENSITIVE matching
                                     // to generate the regular expressions needed by replace().
-                                    // g means global replacement,it will replacea all the words.
+                                    // g means global replacement:it will replace the all targets words in a sentence.
                                     let targetOneRegEx= new RegExp(targetOne,"ig")
                                     let targetTwoRegEx= new RegExp(targetTwo,"ig")
                                     // when you want to use a string target contained in a variable

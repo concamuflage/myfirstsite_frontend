@@ -69,10 +69,6 @@ function AnswerOption(props) {
     // else{
     //   grand.style.border = ''
     // }
-
-
-
-
   }
 
   return (
