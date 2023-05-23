@@ -1,6 +1,6 @@
 
 import PropTypes from 'prop-types';
-import AnswerOption from '../components/AnswerOption';
+import Option from '../components/Option';
 import styles from './Quiz.module.css'
 import React from 'react'
 

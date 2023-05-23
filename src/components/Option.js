@@ -1,34 +1,34 @@
 import React from 'react';
-import styles from './AnswerOption.module.css'
-// import PropTypes from 'prop-types';
-// import { useState } from 'react';
+import styles from './Option.module.css'
 
+// I wrote a seperate Option component so that 
+// you can use it no matter the number of choices in quiz. 
 
 // this function generates one choice
-// use this function and map() to generate all the choices in a quiz
 // in the props, you just need the answer.
-function AnswerOption(props) {
-  // const handleChange=()=>{
-  //   if (this.value = this.answer){
-  //     this.style.border='3px solid limegreen'
-  //   }
-  //   else{
-  //     this.style.border='3px solid red'
-  //   }
-  // }
+// you have so many event handlers in this code.
+// maybe you can use event delegation.
 
-  // const [border,changeBorder] =useState()
+// You should pass props like <Option choice="" answer="">
+// The answer is used to determine if this choice option is the correct choice.
+function Option(props) {
+
   const handleChange = (event)=>{
     // find the element where the target happened.
-    // style={{border:`${border}`}
-    // to find the parement element of the even.target(this is also an element)
+
+    // to obtain the target element's data-answer attribute
+    // later the answer is used to determine if a choice is correct.
     const t=event.target;
     const answer= t.getAttribute("data-answer");
     console.log(t);
-    // to select the grand parent of the event element; the grand element is the div.
+    // to select the grand parent of the event element; 
+    // the grand element is a div. div>li>input(radio)
     const grand= event.target.parentElement.parentElement;
+    // to select the span element in this div.
+    // this is used to unselect the other option when one option is selected.
     const comment_container = grand.getElementsByTagName("span")[0];
     console.log(comment_container);
+    // if the value property of the target is equal to the answer.
     if (t.value===answer) {
       grand.style.border = '3px solid limegreen';
       //why does the following code doesn't work!!!!
@@ -38,16 +38,23 @@ function AnswerOption(props) {
       grand.style.border = '3px solid red';
       
       comment_container.style.color = 'red';
-      //why does the following code doesn't work!!!!
+      //why doesn't the following code work?
       comment_container.innerHTML = "Wrong!";
     }  
-    // to get all the siblings of the grand element; the result is an array.
+
+    // all the following three comments and their code
+    // just to achieve one visual effect. When one radio input is 
+    // selected, the border 
+
+    // to define a function that gets all the siblings of a element; the result is an array.
+    // in our case, elem is the div in div > li > input
+    // the filter function removes all the chidren of the div that is not a <li>
     function getSiblings (elem) {
       return Array.from(elem.parentNode.children).filter(
         function (sibling) {return sibling !== elem;}
         );
     }
-    // the siblings are the li elements that contain other answerchoices.
+    // the siblings are the <li> elements that contain all the choices(raido inputs).
     const siblings = getSiblings(grand);
     console.log(siblings);
     
@@ -56,23 +63,10 @@ function AnswerOption(props) {
       siblings[i].style.border='none'
       comment_container.innerHTML=''
     }
-
-
-    // if (t.checked){
-    //   console.log(t.value,answer)
-    //   if (t.value===answer) {
-    //     grand.style.border = '3px solid limegreen'
-    //   } else {
-    //     grand.style.border = '3px solid red'
-    //   }  
-    // }
-    // else{
-    //   grand.style.border = ''
-    // }
   }
 
   return (
-    <li className={styles.answerOption}>
+    <li className={styles.Option}>
       <label className="radioCustomLabel" >
       <input
         type="radio"
@@ -85,8 +79,7 @@ function AnswerOption(props) {
         // I think the compare function should be present in the quiz component
         // else, the same code is repeated in each option.
         // data-attributes must start with data-; the following cannot be accessed
-        // through element.answer; it will be undefined.
-        // answer={props.answer}
+        // by element.answer; it will be undefined.
         data-answer={props.answer}
 
         // the following syntax is wrong! you must use an js object here.
@@ -98,21 +91,15 @@ function AnswerOption(props) {
         // onChange={()=>changeBorder('2px solid red')}
         // you don't need to use parentheses here.
         // the following event handler only work when the radio button is checked.
-        
         onChange={handleChange}
       />
-        {/* // the props has a choice property that contains the answer option. */}
+        {/* The props object has a choice property that contains the answer option. */}
         {props.choice}
       </label>
+      {/* You must not delete the following span. It makes sure that the other option is unchosen when you click one option */}
       <span></span>
     </li>
   );
 }
 
-// AnswerOption.propTypes = {
-//   oneOption: PropTypes.string.isRequired,
-//   answer: PropTypes.string.isRequired,
-//   compare: PropTypes.func.isRequired
-// };
-
-export default AnswerOption;
+export default Option;

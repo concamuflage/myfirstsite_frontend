@@ -1,24 +1,21 @@
 import React from "react";
- 
-class Mnemonics extends React.Component {
+
+// this component is only suitable for cases
+// where all the columns in the table is used.
+// such a the mnemonic table,the Expressions table.
+
+class List extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {lines: []};
-        this.headers = [
-            { key: 'ID', label: 'ID'},
-            { key: 'Word', label: 'Word' },
-            { key: 'Mnemonic', label: 'Mnemonic' },
-        ];
+        state = {lines: [],headers:[]};
+        // this.headers = [
+        //     { key: 'ID', label: 'ID'},
+        //     { key: 'Word', label: 'Word' },
+        //     { key: 'Mnemonic', label: 'Mnemonic' },
+        // ];
     }
        
     componentDidMount() {
-        // Fetch returns "	A Promise that resolves to a Response object."
-        // in the browser, you can inspect the response.
-        // remember the following syntax, x y is not declared.
-        // fetch(file)
-        // .then(x => x.text())
-        // .then(y => myDisplay(y));
-
         fetch('http://localhost:80/myFirstSite_Back/toFetchData.php?table=mnemonics').then(response => {
             // response refers to the Response object returned by fetch. 
             // you can use X to refer to it as well.
@@ -31,7 +28,6 @@ class Mnemonics extends React.Component {
             // it doesn't need to be declared.
           }).then(result => {
             // Work with JSON data here
-
             console.log(result);
             this.setState({
                 // result is an js object returned by response.json()
@@ -57,7 +53,7 @@ class Mnemonics extends React.Component {
                             <tr>
                                 {
                                   // What is this line doing here?
-                                    this.headers.map(function(h) {
+                                    this.state.headers.map(function(h) {
                                         return (
                                             // th defines a header cell in HTML
                                             <th key={h.key}>{h.label}</th>
@@ -85,7 +81,7 @@ class Mnemonics extends React.Component {
                                       <td>{item.Word}</td>
                                       <td>{item.Mnemonic}</td>
                                     </tr>
-                                )}.bind(this))
+                                )})
                             }
                         </tbody>
                     </table>
@@ -100,4 +96,7 @@ class Mnemonics extends React.Component {
         }
     }
 }
-export default Mnemonics;
+export default List;
+
+
+
